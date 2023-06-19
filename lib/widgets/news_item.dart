@@ -4,17 +4,21 @@ import '../screens/news_details_screen.dart';
 
 class NewsItem extends StatelessWidget {
   final ArticleAttribute newsItem;
+
   const NewsItem({Key? key, required this.newsItem}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ArticleDetail(
-                  article: newsItem,
-                )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticleDetail(
+              article: newsItem,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.all(12.0),
@@ -36,10 +40,9 @@ class NewsItem extends StatelessWidget {
               height: 200.0,
               width: double.infinity,
               decoration: BoxDecoration(
-                //let's add the height
-
                 image: DecorationImage(
-                    image: NetworkImage(newsItem.urlToImage.toString()), fit: BoxFit.cover),
+                    image: NetworkImage(newsItem.urlToImage.toString()),
+                    fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(12.0),
               ),
             ),
@@ -68,7 +71,7 @@ class NewsItem extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
-            )
+            ),
           ],
         ),
       ),

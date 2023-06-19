@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="news"
+        android:label="newz house"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5532943950918519~9007516814"/>
+            android:value="ca-app-pub-2965328716976542~6185002225"/>
 
         <activity
             android:name=".MainActivity"

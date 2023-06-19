@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../model/news_model.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +13,13 @@ class NewsProvider extends ChangeNotifier {
 
   List<ArticleAttribute?>? _newsDisplay = [];
   List<ArticleAttribute?>? get newsDisplay => _newsDisplay;
+
+  String _resMessage = '';
+  String get resMessage => _resMessage;
+
+  bool _signingInWithGoogle = true;
+  bool get signingInWithGoogle => _signingInWithGoogle;
+
 
 //fetch news
   Future<List<ArticleAttribute?>> getNews() async {
@@ -35,13 +44,18 @@ class NewsProvider extends ChangeNotifier {
       }
       _isLoading = false;
       notifyListeners();
+
+    } on SocketException catch (_) {
+      _resMessage = "Internet connection not available";
+      _signingInWithGoogle = false;
+      notifyListeners();
     } catch (err) {
-      debugPrint(err.toString());
+      debugPrint('Google Auth Exception: ${err.toString()}');
+      _resMessage = "Please try again";
+      _signingInWithGoogle = false;
     }
     _isLoading = false;
     notifyListeners();
-    return newsHere!;
+    return newsHere;
   }
-
-
 }

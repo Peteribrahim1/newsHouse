@@ -3,7 +3,6 @@ import '../model/news_model.dart';
 
 class ArticleDetail extends StatelessWidget {
   final ArticleAttribute article;
-
   const ArticleDetail({super.key, required this.article});
 
   @override
@@ -25,7 +24,6 @@ class ArticleDetail extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   //let's add the height
-
                   image: DecorationImage(
                       image: NetworkImage(article.urlToImage.toString(),), fit: BoxFit.cover),
                   borderRadius: BorderRadius.circular(12.0),
@@ -56,7 +54,7 @@ class ArticleDetail extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 16.0,
                 ),
-              )
+              ),
             ],
           ),
         ),

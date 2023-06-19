@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
 import 'package:provider/provider.dart';
-
 import '../providers/news_provider.dart';
 import '../widgets/news_item.dart';
-
 
 class NewsScreen extends StatefulWidget {
   static const routeName = '/news';
@@ -20,10 +17,9 @@ class _NewsScreenState extends State<NewsScreen> {
   //define class members
   late final BannerAd bannerAd;
   bool isAdLoaded = false;
-  //final String adUnitId = "ca-app-pub-4953766457305867/9693512176";
+
   final String adUnitId = "ca-app-pub-3940256099942544/6300978111";
   bool loadingAd = false;
-
 
   @override
   void initState() {
@@ -34,25 +30,6 @@ class _NewsScreenState extends State<NewsScreen> {
       newsProvider.getNews();
       setState(() {});
     });
-
-    // //initialize banner ad
-    // bannerAd = BannerAd(
-    //     size: AdSize.banner,
-    //     adUnitId: adUnitId,
-    //     listener: BannerAdListener(
-    //       onAdLoaded: (ad) {
-    //         setState(() {
-    //           isAdLoaded = true;
-    //         });
-    //       },
-    //       onAdFailedToLoad: (ad, error) {
-    //         ad.dispose();
-    //         print(error);
-    //       },
-    //     ),
-    //     request: const AdRequest());
-    // // load ad here
-    // bannerAd.load();
   }
 
   /// Loads a banner ad.
@@ -96,28 +73,37 @@ class _NewsScreenState extends State<NewsScreen> {
           ),
         ),
       ),
-      body:
-      SafeArea(
-        child: Consumer<NewsProvider>(
-          builder: (context, newsProvider, child) {
-            return newsProvider.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                    ),
-                  )
-                : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: getNewsProvider.newsDisplay?.length,
-                    itemBuilder: (context, index) {
-                      final newsDataVariable =
-                          getNewsProvider.newsDisplay![index];
-                      return NewsItem(newsItem: newsDataVariable!);
-                    },
-                  );
-          },
-        ),
-      ),
+      body: getNewsProvider.resMessage == 'Internet connection not available'
+          ? const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Center(
+                child: Text(
+                  'No or bad internet connection! Check your connection, close and restart the app again.',
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            )
+          : SafeArea(
+              child: Consumer<NewsProvider>(
+                builder: (context, newsProvider, child) {
+                  return newsProvider.isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.black,
+                          ),
+                        )
+                      : ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: getNewsProvider.newsDisplay?.length,
+                          itemBuilder: (context, index) {
+                            final newsDataVariable =
+                                getNewsProvider.newsDisplay![index];
+                            return NewsItem(newsItem: newsDataVariable!);
+                          },
+                        );
+                },
+              ),
+            ),
       bottomNavigationBar: loadingAd
           ? SizedBox(
               height: bannerAd.size.height.toDouble(),
