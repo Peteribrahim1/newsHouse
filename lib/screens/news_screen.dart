@@ -18,7 +18,7 @@ class _NewsScreenState extends State<NewsScreen> {
   late final BannerAd bannerAd;
   bool isAdLoaded = false;
 
-  final String adUnitId = "ca-app-pub-3940256099942544/6300978111";
+  final String adUnitId = "ca-app-pub-4731966187511309/4330930273";
   bool loadingAd = false;
 
   @override
